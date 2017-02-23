@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>* EuroMapping</title>
+  <script src="./js/d3.min.js"></script>
+  <script src="./js/topojson-client.min.js"></script>
+  <script src="./js/queue.min.js"></script>
+  <style type="text/css">
+  html, #map {
+    background-color: #eee;
+  }
+  .subunit {
+    fill: #424;
+    stroke: #666;
+    stroke-opacity: 0.5;
+    stroke-width: 0.3px;
+  }
+  .subunit:hover {
+    cursor: pointer;
+    fill: #203;
+    stroke: #fff;
+  }
+  .subunit.donor {
+    fill: #115;
+  }
+  .subunit.donor:hover {
+    fill: #003;
+  }
+
+  .subunit-label {
+    fill: #999;
+    fill-opacity: 1;
+    font-size: 11px;
+    text-anchor: middle;
+    stroke: none;
+    display: none;
+  }
+  .subunit:hover .subunit-label {
+    display: block;
+  }
+  .xyzunit {
+    fill: #112;
+    fill-opacity: 0.3;
+    stroke: none;
+  }
+
+  .arc {
+    stroke-width: 1px;
+    stroke: #101;
+    stroke-opacity: 0.8;
+    fill: #364;
+    fill-opacity: 0.7;
+  }
+
+  /* graticule styles */
+  .stroke {
+    fill: none;
+    stroke: #000;
+    stroke-width: 3px;
+  }
+
+  .fill {
+    fill: #eee;
+  }
+
+  .graticule {
+    fill: none;
+    stroke: #777;
+    stroke-width: 0.5px;
+    stroke-opacity: 0.5;
+  }
+
+  </style>
+</head>
+
+<body>
+  <div id='map'>
+  </div>
+</body>
+
+<script>
+var width = 800,
+    height = 600;
+var svg = d3.select("#map").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+/*
+ * The European grid is a proposed, multipurpose Pan-European mapping standard.
+ * It is based on the ETRS89 Lambert Azimuthal Equal-Area projection coordinate
+ * reference system, with the centre of the projection at the point 52o N, 10o E
+ * and false easting: x0 = 4321000 m, false northing: y0 = 3210000 m
+ * (CRS identifier in Inspire: ETRS89-LAEA).
+ */
+var projectio1 = d3.geoAzimuthalEqualArea()
+                   .rotate([-10, -52, 0])
+                   .scale(1000)
+                   .translate([width/2, height/2])
+
+var projectio2 = d3.geoTransverseMercator()
+                   .rotate([-5,-53,0])
+                   .scale(1000)
+                   .translate([width/2, height/2])
+
+var projectio3 = d3.geoMercator()
+                   .rotate([-5,-53,0])
+                   .scale(1000)
+                   .translate([width/2, height/2]);
+
+var projectio4 = d3.geoConicConformal()
+                   .rotate([-5,-50,0])
+                   .scale(1000)
+                   .translate([width/2, height/2]);
+
+var projection = projectio1;
+
+
+var path = d3.geoPath()
+             .projection(projection);
+
+var graticule = d3.geoGraticule();
+
+svg.append("defs").append("path")
+   .datum({type: "Sphere"})
+   .attr("id", "sphere")
+   .attr("d", path);
+
+svg.append("use")
+   .attr("class", "stroke")
+   .attr("xlink:href", "#sphere");
+
+svg.append("use")
+   .attr("class", "fill")
+   .attr("xlink:href", "#sphere");
+
+svg.append("path")
+   .datum(graticule)
+   .attr("class", "graticule")
+   .attr("d", path);
+
+
+var donor_states = ['IS', 'LI', 'NO'];
+var keep_states = [
+  'IS', 'LI', 'NO',
+  'BG', 'CY', 'CZ', 'EE', 'ES', 'GR', 'HR', 'HU',
+  'LT', 'LV', 'MT', 'PL', 'PT', 'RO', 'SI', 'SK'];
+
+var mkmap = function(error, data) {
+  //d3.json("/static/data/NUTS_lvl0.json", function(error, data) {
+  if (error) return console.error(error);
+
+  var units = topojson.feature(data,
+                               data.objects.nuts_rg_60m_2010_lvl_1);
+
+  //var units = topojson.feature(data,
+  //                             data.objects.nutsrg);
+
+  var nuts_data = {};
+
+  var subunits = svg.selectAll()
+                    .data(units.features)
+                    .enter().append("g")
+                    .filter(function(d) {
+                      // TODO: this is a bad place to do this
+                      nuts_data[d.properties.NUTS_ID] = path.centroid(d);
+
+                      var state = d.properties.NUTS_ID.substr(0,2);
+                      return keep_states.indexOf(state) != -1;
+                    })
+                    .attr("class", function(d) {
+                      var name = donor_states.indexOf(
+                        d.properties.NUTS_ID.substr(0,2)
+                      ) != -1 ? 'donor' : d.properties.NUTS_ID;
+                      return "subunit " + name;
+                    });
+  subunits.append("path")
+          .attr("d", path);
+
+  var xyzunits = svg.selectAll()
+                    .data(units.features)
+                    .enter().append("g")
+                    .filter(function(d) {
+                      var state = d.properties.NUTS_ID.substr(0,2);
+                      return keep_states.indexOf(state) == -1;
+                    })
+                    .attr("class", function(d) {
+                      return "xyzunit";
+                    });
+  xyzunits.append("path")
+          .attr("d", path);
+
+  subunits.append("text")
+          .attr("class", function(d) {
+            return "subunit-label " + d.properties.NUTS_ID;
+          })
+          .attr("transform", function(d) {
+            return "translate(" + path.centroid(d) + ")";
+          })
+          .text(function(d) {
+            return d.properties.NUTS_ID;
+          });
+
+  can_has_stats.setNUTS(nuts_data);
+  mkstats()
+};
+
+var can_has_stats = (function() {
+  var nuts = null, stats = null;
+
+  var obj = {};
+
+  obj.isReady = function() {
+    return (nuts !== null) && (stats !== null);
+  };
+
+  obj.setNUTS = function(data) {
+    nuts = data;
+  };
+
+  obj.setStats = function(data) {
+    stats = data;
+  }
+
+  obj.getNUTS = function(data) {
+    return nuts;
+  };
+
+  obj.getStats = function(data) {
+    return stats;
+  }
+
+  return obj;
+}());
+
+var mkstats = function(error, data) {
+  if (error) return console.error(error);
+  if (data) {
+    // only d3.json() will send us data
+    can_has_stats.setStats(data);
+  }
+
+  if (!can_has_stats.isReady()) return;
+
+  nuts = can_has_stats.getNUTS();
+  stats = can_has_stats.getStats();
+
+  // min weight = 10
+  // smallest -> minw
+  // restu' %
+  var minw = 5,
+      maxw = 20,
+      _minw = maxw,
+      _maxw = minw;
+
+  stats.forEach(function(s, i){
+    _minw = Math.min(s.count, _minw);
+    _maxw = Math.max(s.count, _maxw);
+  });
+
+  var _a = (maxw - minw) / (_maxw - _minw);
+  var _b = maxw - _maxw * _a;
+
+  var getweight = function(w) {
+    return _a * w + _b;
+  };
+
+  var arcs = svg.append("g").selectAll()
+                .data(stats);
+  arcs
+    .enter().append("path")
+    .attr('class','arc')
+    .attr('d', function(d) {
+      if (nuts[d.source] === undefined) {
+        return;
+        console.log('src', d.source);
+      }
+      if (nuts[d.target] === undefined) {
+        return;
+        console.log('tgt', d.target);
+      }
+
+      var x0 = nuts[d.source][0],
+          y0 = nuts[d.source][1],
+
+          x1 = nuts[d.target][0],
+          y1 = nuts[d.target][1],
+
+          // distance between points = circle radius
+          _dx = x1 - x0,
+          _dy = y1 - y0,
+          r = Math.sqrt(_dx * _dx + _dy * _dy),
+
+          // arc direction
+          a0 = (x1 >= x0) ? 1 : 0,
+          a1 = (a0 == 0 ) ? 1 : 0,
+          _ad = -1,
+          // a constant from calculations
+          _u = Math.sqrt(3 / 4),
+
+          // circle center
+          xc = (x0 + x1) / 2 + _ad * (y1 - y0) * _u,
+          yc = (y0 + y1) / 2 - _ad * (x1 - x0) * _u,
+
+          // calculate a segment of length weight
+          _s = getweight(d.count) / 2,
+          _sx = _s * (x1 - xc) / r,
+          _sy = _s * (y1 - yc) / r,
+          // distance towards circle center
+          xin = x1 - _sx,
+          yin = y1 - _sy,
+          // distance from circle center
+          xout = x1 + _sx,
+          yout = y1 + _sy,
+
+          // recompute radius vs in/out
+          _dxi = xin - x0,
+          _dyi = yin - y0,
+          rin = Math.sqrt(_dxi * _dxi + _dyi * _dyi),
+          _dxo = xout - x0,
+          _dyo = yout - y0,
+          rout = Math.sqrt(_dxo * _dxo + _dyo * _dyo),
+
+          ___the_end;
+
+      var path = (
+        "M" + x0 + "," + y0 +
+        "A" + rout + "," + rout + " 0 0," + a0 + " " + xout + "," + yout +
+        "L" + xin + "," + yin +
+        "A" + rin + "," + rin + " 0 0," + a1 + " " + x0 + "," + y0 +
+        "Z"
+      );
+//      console.log(path)
+      return(path);
+    });
+};
+
+
+var q = d3.queue()
+          .defer (d3.json, "./data/nuts_rg_60m_2010_lvl_1.json", mkmap)
+          .defer (d3.json, "./data/proj-counts.json", mkstats)
+          //.defer (d3.json, "./data/prog-counts.json", mkstats)
+          .await(function(error) {
+            if (error) throw error;
+          });
+</script>
+
+
+</html>

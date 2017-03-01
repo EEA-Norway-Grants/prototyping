@@ -48,9 +48,9 @@
 
   .arc {
     stroke-width: 1px;
-    stroke: #101;
+    stroke: #F64;
     stroke-opacity: 0.8;
-    fill: #364;
+    fill: #F64;
     fill-opacity: 0.7;
   }
 
@@ -66,7 +66,7 @@
   }
 
   .graticule {
-    fill: none;
+    fill: #EEE;
     stroke: #777;
     stroke-width: 0.5px;
     stroke-opacity: 0.5;
@@ -144,7 +144,7 @@ svg.append("path")
 var donor_states = ['IS', 'LI', 'NO'];
 var keep_states = [
   'IS', 'LI', 'NO',
-  'BG', 'CY', 'CZ', 'EE', 'ES', 'GR', 'HR', 'HU',
+  'BG', 'CY', 'CZ', 'EE', 'ES', 'GR', 'HR', 'HU', 'EL',
   'LT', 'LV', 'MT', 'PL', 'PT', 'RO', 'SI', 'SK'];
 
 var mkmap = function(error, data) {
@@ -263,7 +263,7 @@ var mkstats = function(error, data) {
   var _b = maxw - _maxw * _a;
 
   var getweight = function(w) {
-    return _a * w + _b;
+    return 1 + 0 * (_a * w + _b);
   };
 
   var arcs = svg.append("g").selectAll()
@@ -338,8 +338,11 @@ var mkstats = function(error, data) {
 
 
 var q = d3.queue()
+          //.defer (d3.json, "./data/nuts2006.topojson", mkmap)
           .defer (d3.json, "./data/nuts_rg_60m_2010_lvl_1.json", mkmap)
-          .defer (d3.json, "./data/proj-counts.json", mkstats)
+          .defer (d3.json, "./data/programmes_nuts1.json", mkstats)
+          //.defer (d3.json, "./data/projects_nuts1.json", mkstats)
+          //.defer (d3.json, "./data/proj-counts.json", mkstats)
           //.defer (d3.json, "./data/prog-counts.json", mkstats)
           .await(function(error) {
             if (error) throw error;

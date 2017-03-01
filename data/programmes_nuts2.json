@@ -1,0 +1,227 @@
+[
+    {
+        "count": "5", 
+        "source": "FR42", 
+        "target": "BG41"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR42", 
+        "target": "CY00"
+    }, 
+    {
+        "count": "2", 
+        "source": "FR42", 
+        "target": "CZ01"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR42", 
+        "target": "HU10"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR42", 
+        "target": "LV00"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR42", 
+        "target": "MT00"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR42", 
+        "target": "PL12"
+    }, 
+    {
+        "count": "5", 
+        "source": "FR42", 
+        "target": "RO32"
+    }, 
+    {
+        "count": "2", 
+        "source": "FR42", 
+        "target": "SK01"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "HU10"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "PT20"
+    }, 
+    {
+        "count": "2", 
+        "source": "IS00", 
+        "target": "RO32"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO01", 
+        "target": "BE10"
+    }, 
+    {
+        "count": "3", 
+        "source": "NO01", 
+        "target": "BG41"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO01", 
+        "target": "CY00"
+    }, 
+    {
+        "count": "3", 
+        "source": "NO01", 
+        "target": "CZ01"
+    }, 
+    {
+        "count": "7", 
+        "source": "NO01", 
+        "target": "EE00"
+    }, 
+    {
+        "count": "2", 
+        "source": "NO01", 
+        "target": "ES30"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO01", 
+        "target": "GR30"
+    }, 
+    {
+        "count": "5", 
+        "source": "NO01", 
+        "target": "HU10"
+    }, 
+    {
+        "count": "5", 
+        "source": "NO01", 
+        "target": "LT00"
+    }, 
+    {
+        "count": "4", 
+        "source": "NO01", 
+        "target": "LV00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO01", 
+        "target": "NO01"
+    }, 
+    {
+        "count": "3", 
+        "source": "NO01", 
+        "target": "PL12"
+    }, 
+    {
+        "count": "2", 
+        "source": "NO01", 
+        "target": "PT17"
+    }, 
+    {
+        "count": "7", 
+        "source": "NO01", 
+        "target": "RO32"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO01", 
+        "target": "SI02"
+    }, 
+    {
+        "count": "3", 
+        "source": "NO01", 
+        "target": "SK01"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO03", 
+        "target": "HU10"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO03", 
+        "target": "LV00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO03", 
+        "target": "PT17"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO03", 
+        "target": "SK01"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO04", 
+        "target": "LT00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO04", 
+        "target": "LV00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO04", 
+        "target": "PL12"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO04", 
+        "target": "RO32"
+    }, 
+    {
+        "count": "2", 
+        "source": "NO06", 
+        "target": "BG41"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO06", 
+        "target": "CZ01"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO06", 
+        "target": "EE00"
+    }, 
+    {
+        "count": "4", 
+        "source": "NO06", 
+        "target": "LT00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO06", 
+        "target": "LV00"
+    }, 
+    {
+        "count": "2", 
+        "source": "NO06", 
+        "target": "PL12"
+    }, 
+    {
+        "count": "3", 
+        "source": "NO06", 
+        "target": "RO32"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO07", 
+        "target": "BG41"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO07", 
+        "target": "SK01"
+    }
+]

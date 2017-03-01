@@ -1,0 +1,142 @@
+[
+    {
+        "count": "5", 
+        "source": "FR4", 
+        "target": "BG4"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR4", 
+        "target": "CY0"
+    }, 
+    {
+        "count": "2", 
+        "source": "FR4", 
+        "target": "CZ0"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR4", 
+        "target": "HU1"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR4", 
+        "target": "LV0"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR4", 
+        "target": "MT0"
+    }, 
+    {
+        "count": "1", 
+        "source": "FR4", 
+        "target": "PL1"
+    }, 
+    {
+        "count": "5", 
+        "source": "FR4", 
+        "target": "RO3"
+    }, 
+    {
+        "count": "2", 
+        "source": "FR4", 
+        "target": "SK0"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS0", 
+        "target": "HU1"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS0", 
+        "target": "PT2"
+    }, 
+    {
+        "count": "2", 
+        "source": "IS0", 
+        "target": "RO3"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO0", 
+        "target": "BE1"
+    }, 
+    {
+        "count": "6", 
+        "source": "NO0", 
+        "target": "BG4"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO0", 
+        "target": "CY0"
+    }, 
+    {
+        "count": "4", 
+        "source": "NO0", 
+        "target": "CZ0"
+    }, 
+    {
+        "count": "8", 
+        "source": "NO0", 
+        "target": "EE0"
+    }, 
+    {
+        "count": "2", 
+        "source": "NO0", 
+        "target": "ES3"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO0", 
+        "target": "EL3"
+    }, 
+    {
+        "count": "6", 
+        "source": "NO0", 
+        "target": "HU1"
+    }, 
+    {
+        "count": "10", 
+        "source": "NO0", 
+        "target": "LT0"
+    }, 
+    {
+        "count": "7", 
+        "source": "NO0", 
+        "target": "LV0"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO0", 
+        "target": "NO0"
+    }, 
+    {
+        "count": "6", 
+        "source": "NO0", 
+        "target": "PL1"
+    }, 
+    {
+        "count": "3", 
+        "source": "NO0", 
+        "target": "PT1"
+    }, 
+    {
+        "count": "11", 
+        "source": "NO0", 
+        "target": "RO3"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO0", 
+        "target": "SI0"
+    }, 
+    {
+        "count": "5", 
+        "source": "NO0", 
+        "target": "SK0"
+    }
+]

@@ -8,11 +8,40 @@
   <script src="./js/topojson-client.min.js"></script>
   <script src="./js/queue.min.js"></script>
   <style type="text/css">
-  html, #map {
-    background-color: #eee;
+  #sphere {
+    fill: #def;
+    stroke: none;
   }
+
+  .graticule {
+    fill: none;
+    stroke: #777;
+    stroke-width: 0.5;
+    stroke-opacity: 0.5;
+  }
+
+  .country-terrain {
+    fill: #fed;
+    fill-opacity: 0.5;
+    stroke: none;
+  }
+
+  .country-borders {
+    fill: none;
+    stroke: #999;
+    stroke-width: 0.5;
+    stroke-opacity: 0.5;
+  }
+
+  .states-borders {
+    fill: none;
+    stroke: black;
+    stroke-width: 1;
+  }
+
   .subunit {
-    fill: #424;
+    fill: #051;
+    fill-opacity: 1;
     stroke: #666;
     stroke-opacity: 0.5;
     stroke-width: 0.3px;
@@ -40,38 +69,42 @@
   .subunit:hover .subunit-label {
     display: block;
   }
-  .xyzunit {
-    fill: #112;
-    fill-opacity: 0.3;
-    stroke: none;
-  }
 
   .arc {
-    stroke-width: 1px;
-    stroke: #F64;
-    stroke-opacity: 0.8;
-    fill: #F64;
-    fill-opacity: 0.7;
-  }
-
-  /* graticule styles */
-  .stroke {
     fill: none;
-    stroke: #000;
-    stroke-width: 3px;
+    stroke: url(#connection-gradient);
+  }
+  /* #projects */ .arc {
+    stroke-width: 0.3;
+    stroke-opacity: 0.6;
+  }
+  #programmes .arc {
+    stroke-width: 1;
+    stroke-opacity: 0.8;
   }
 
-  .fill {
-    fill: #eee;
+/** night theme ** /
+  #sphere {
+    fill: #012;
   }
-
   .graticule {
-    fill: #EEE;
     stroke: #777;
-    stroke-width: 0.5px;
-    stroke-opacity: 0.5;
+  }
+  .country-terrain {
+    fill: #333;
+  }
+  .country-borders {
+    stroke: #999;
+  }
+  .states-borders {
+    stroke: black;
+  }
+  .subunit {
+    fill: #200;
+    stroke: #666;
   }
 
+/* ... */
   </style>
 </head>
 
@@ -86,6 +119,18 @@ var width = 800,
 var svg = d3.select("#map").append("svg")
             .attr("width", width)
             .attr("height", height);
+
+var defs = svg.append("defs");
+// TODO: add a second, inverted gradient
+//       to use for reverse arcs
+// TODO: actually, that probably won't work. if so,
+//       https://bl.ocks.org/mbostock/4163057
+//       or create individual gradients / gradient transforms
+defs.html(
+  '<linearGradient id="connection-gradient"> \
+      <stop offset="5%" stop-color="#2c6" /> \
+      <stop offset="95%" stop-color="#c62" /> \
+  </linearGradient>');
 
 /*
  * The European grid is a proposed, multipurpose Pan-European mapping standard.
@@ -116,30 +161,23 @@ var projectio4 = d3.geoConicConformal()
 
 var projection = projectio1;
 
-
 var path = d3.geoPath()
              .projection(projection);
 
 var graticule = d3.geoGraticule();
 
-svg.append("defs").append("path")
-   .datum({type: "Sphere"})
-   .attr("id", "sphere")
-   .attr("d", path);
+var base = svg.append("g").attr("id","base");
 
-svg.append("use")
-   .attr("class", "stroke")
-   .attr("xlink:href", "#sphere");
 
-svg.append("use")
-   .attr("class", "fill")
-   .attr("xlink:href", "#sphere");
+base.append("path")
+    .datum({type: "Sphere"})
+    .attr("id", "sphere")
+    .attr("d", path);
 
-svg.append("path")
-   .datum(graticule)
-   .attr("class", "graticule")
-   .attr("d", path);
-
+base.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
 
 var donor_states = ['IS', 'LI', 'NO'];
 var keep_states = [
@@ -147,145 +185,106 @@ var keep_states = [
   'BG', 'CY', 'CZ', 'EE', 'ES', 'GR', 'HR', 'HU', 'EL',
   'LT', 'LV', 'MT', 'PL', 'PT', 'RO', 'SI', 'SK'];
 
-var mkmap = function(error, data) {
-  //d3.json("/static/data/NUTS_lvl0.json", function(error, data) {
+var stats = d3.map(),
+    centroids = d3.map();
+
+var mkbase = function(error, data, callback) {
+  if (error) return console.error(error);
+
+  base.selectAll()
+      .data(topojson.feature(data, data.objects.countries).features)
+      .enter().append("path")
+      .attr("d", path)
+      .attr("class", "country-terrain");
+
+  base
+    .datum(topojson.mesh(data, data.objects.countries))
+    .append("path")
+    .attr("d", path)
+    .attr("class", "country-borders");
+
+  if (callback !== undefined) callback();
+};
+
+var mkmap = function(error, data, callback) {
   if (error) return console.error(error);
 
   var units = topojson.feature(data,
-                               data.objects.nuts_rg_60m_2010_lvl_1);
+                               data.objects.nuts3);
 
   //var units = topojson.feature(data,
   //                             data.objects.nutsrg);
-
-  var nuts_data = {};
 
   var subunits = svg.selectAll()
                     .data(units.features)
                     .enter().append("g")
                     .filter(function(d) {
                       // TODO: this is a bad place to do this
-                      nuts_data[d.properties.NUTS_ID] = path.centroid(d);
+                      centroids.set(d.id, path.centroid(d));
 
-                      var state = d.properties.NUTS_ID.substr(0,2);
+                      var state = d.id.substr(0,2);
                       return keep_states.indexOf(state) != -1;
                     })
                     .attr("class", function(d) {
-                      var name = donor_states.indexOf(
-                        d.properties.NUTS_ID.substr(0,2)
-                      ) != -1 ? 'donor' : d.properties.NUTS_ID;
+                      var state = d.id.substr(0,2);
+                      var name = donor_states.indexOf(state) != -1 ?
+                                 'donor' : d.id;
                       return "subunit " + name;
                     });
   subunits.append("path")
           .attr("d", path);
 
-  var xyzunits = svg.selectAll()
-                    .data(units.features)
-                    .enter().append("g")
-                    .filter(function(d) {
-                      var state = d.properties.NUTS_ID.substr(0,2);
-                      return keep_states.indexOf(state) == -1;
-                    })
-                    .attr("class", function(d) {
-                      return "xyzunit";
-                    });
-  xyzunits.append("path")
-          .attr("d", path);
-
   subunits.append("text")
           .attr("class", function(d) {
-            return "subunit-label " + d.properties.NUTS_ID;
+            return "subunit-label " + d.id;
           })
           .attr("transform", function(d) {
             return "translate(" + path.centroid(d) + ")";
           })
           .text(function(d) {
-            return d.properties.NUTS_ID;
+            return d.id;
           });
 
-  can_has_stats.setNUTS(nuts_data);
-  mkstats()
+  svg
+    .datum(topojson.mesh(data, data.objects.nuts0,
+                         function(a, b) {
+                           return keep_states.indexOf(a.id) != -1 ||
+                                  keep_states.indexOf(b.id) != -1;
+                         }))
+    .append("path")
+    .attr("d", path)
+    .attr("class","states-borders");
+
+  if (callback !== undefined) callback();
 };
 
-var can_has_stats = (function() {
-  var nuts = null, stats = null;
-
-  var obj = {};
-
-  obj.isReady = function() {
-    return (nuts !== null) && (stats !== null);
-  };
-
-  obj.setNUTS = function(data) {
-    nuts = data;
-  };
-
-  obj.setStats = function(data) {
-    stats = data;
-  }
-
-  obj.getNUTS = function(data) {
-    return nuts;
-  };
-
-  obj.getStats = function(data) {
-    return stats;
-  }
-
-  return obj;
-}());
-
-var mkstats = function(error, data) {
-  if (error) return console.error(error);
-  if (data) {
-    // only d3.json() will send us data
-    can_has_stats.setStats(data);
-  }
-
-  if (!can_has_stats.isReady()) return;
-
-  nuts = can_has_stats.getNUTS();
-  stats = can_has_stats.getStats();
-
-  // min weight = 10
-  // smallest -> minw
-  // restu' %
-  var minw = 5,
-      maxw = 20,
-      _minw = maxw,
-      _maxw = minw;
-
-  stats.forEach(function(s, i){
-    _minw = Math.min(s.count, _minw);
-    _maxw = Math.max(s.count, _maxw);
-  });
-
-  var _a = (maxw - minw) / (_maxw - _minw);
-  var _b = maxw - _maxw * _a;
-
-  var getweight = function(w) {
-    return 1 + 0 * (_a * w + _b);
-  };
-
+var mkstats = function() {
   var arcs = svg.append("g").selectAll()
-                .data(stats);
+                .data(stats.entries());
   arcs
     .enter().append("path")
     .attr('class','arc')
     .attr('d', function(d) {
-      if (nuts[d.source] === undefined) {
+      var nuts = d.key.split(','),
+          source = nuts[0],
+          target = nuts[1],
+          _source = centroids.get(source),
+          _target = centroids.get(target);
+
+      if (_source === undefined) {
+        console.log('missing source:', '«' + source + '»');
         return;
-        console.log('src', d.source);
       }
-      if (nuts[d.target] === undefined) {
+      if (_target === undefined) {
+        console.log('missing target:', target);
         return;
-        console.log('tgt', d.target);
       }
 
-      var x0 = nuts[d.source][0],
-          y0 = nuts[d.source][1],
+      var x0 = _source[0],
+          y0 = _source[1],
 
-          x1 = nuts[d.target][0],
-          y1 = nuts[d.target][1],
+          x1 = _target[0],
+          y1 = _target[1],
 
           // distance between points = circle radius
           _dx = x1 - x0,
@@ -293,60 +292,47 @@ var mkstats = function(error, data) {
           r = Math.sqrt(_dx * _dx + _dy * _dy),
 
           // arc direction
-          a0 = (x1 >= x0) ? 1 : 0,
-          a1 = (a0 == 0 ) ? 1 : 0,
-          _ad = -1,
-          // a constant from calculations
-          _u = Math.sqrt(3 / 4),
-
-          // circle center
-          xc = (x0 + x1) / 2 + _ad * (y1 - y0) * _u,
-          yc = (y0 + y1) / 2 - _ad * (x1 - x0) * _u,
-
-          // calculate a segment of length weight
-          _s = getweight(d.count) / 2,
-          _sx = _s * (x1 - xc) / r,
-          _sy = _s * (y1 - yc) / r,
-          // distance towards circle center
-          xin = x1 - _sx,
-          yin = y1 - _sy,
-          // distance from circle center
-          xout = x1 + _sx,
-          yout = y1 + _sy,
-
-          // recompute radius vs in/out
-          _dxi = xin - x0,
-          _dyi = yin - y0,
-          rin = Math.sqrt(_dxi * _dxi + _dyi * _dyi),
-          _dxo = xout - x0,
-          _dyo = yout - y0,
-          rout = Math.sqrt(_dxo * _dxo + _dyo * _dyo),
+          a = (x1 >= x0) ? 1 : 0,
 
           ___the_end;
 
       var path = (
         "M" + x0 + "," + y0 +
-        "A" + rout + "," + rout + " 0 0," + a0 + " " + xout + "," + yout +
-        "L" + xin + "," + yin +
-        "A" + rin + "," + rin + " 0 0," + a1 + " " + x0 + "," + y0 +
-        "Z"
+        "A" + r + "," + r + " 0 0," + a + " " + x1 + "," + y1
       );
-//      console.log(path)
+
       return(path);
     });
 };
 
 
+var _q = function() {
+  // wrap a function call so d3.queue works
+  console.log(arguments);
+  var args = Array.prototype.splice.call(arguments, 0);
+
+  var func = args.splice(0, 1)[0];
+  var __cb = args.pop();
+  var callback = args.pop();
+
+  var _scope = this;
+  args.push(function(){
+    var _args = Array.prototype.splice.call(arguments, 0);
+    _args.push(__cb);
+    callback.apply(_scope, _args);
+  });
+
+  func.apply(this, args);
+}
+
 var q = d3.queue()
-          //.defer (d3.json, "./data/nuts2006.topojson", mkmap)
-          .defer (d3.json, "./data/nuts_rg_60m_2010_lvl_1.json", mkmap)
-          .defer (d3.json, "./data/programmes_nuts1.json", mkstats)
-          //.defer (d3.json, "./data/projects_nuts1.json", mkstats)
-          //.defer (d3.json, "./data/proj-counts.json", mkstats)
-          //.defer (d3.json, "./data/prog-counts.json", mkstats)
-          .await(function(error) {
-            if (error) throw error;
-          });
+          .defer (_q, d3.json, "./data/layers.topojson", mkbase)
+          .defer (_q, d3.json, "./data/nuts2006.topojson", mkmap)
+          .defer (d3.csv, "./data/projects_nuts3.csv",
+                  function(d) {
+                    stats.set([d.source, d.target], d.count);
+                  })
+          .await(mkstats);
 </script>
 
 

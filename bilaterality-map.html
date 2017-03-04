@@ -52,11 +52,11 @@
     fill: #247;
   }
 
-  .unit:hover, .unit.hovered {
+  .unit:hover, .unit.highlighted {
     fill: #203;
     stroke: #fff;
   }
-  .unit.donor:hover, .unit.donor:hovered {
+  .unit.donor:hover, .unit.donor:highlighted {
     fill: #104;
   }
 
@@ -66,7 +66,7 @@
     stroke: url(#connection-gradient);
     stroke-width: 0.5;
     stroke-opacity: 0.5;
-    transition: stroke 0.2s ease-out, stroke-opacity 1s ease-out;
+    transition: stroke 0.2s ease-out, stroke-opacity 0.2s ease-out;
   }
   #programmes .arc {
     /*
@@ -75,6 +75,7 @@
     */
     stroke: violet;
     stroke-opacity: 0.7;
+    stroke-width: 0.7;
   }
   #projects .arc {
     /*
@@ -84,9 +85,12 @@
     stroke: orange;
     stroke-opacity: 0.3;
   }
-  #programmes .arc.hovered, #projects .arc.hovered {
+  #programmes .arc.highlighted, #projects .arc.highlighted {
     stroke: red;
     stroke-opacity: 0.8;
+  }
+  #programmes.hidden .arc, #projects.hidden .arc {
+    stroke-opacity: 0;
   }
 
 /** night theme ** /
@@ -111,6 +115,16 @@
   }
 
 /* ... */
+
+  #buttons {
+    position: relative;
+    left: 635px;
+    top: -600px;
+  }
+  #buttons *:last-child {
+    margin-left: 10px;
+  }
+
   </style>
 </head>
 
@@ -229,14 +243,14 @@ var mkbase = function(error, data, callback) {
 var unithandler = function() {
   var _handle = function(d, enable) {
     d3.selectAll("#relations .arc." + d.id)
-      .classed("hovered", enable)
+      .classed("highlighted", enable)
       .each(function(self) {
         // make the hover work both ways
         var other = d.id == self.source ? self.target :
                     (d.id == self.target ? self.source :
                      console.error('this.. never... wut?'));
         d3.selectAll("#states .unit." + other)
-          .classed("hovered", enable);
+          .classed("highlighted", enable);
       });
   }
   var over = function(d) {
@@ -355,6 +369,21 @@ var _q = function() {
   func.apply(this, args);
 }
 
+var mkbuttons = function() {
+  // create toggle buttons for programmes / projects
+  var buttons = _svg.select(function(){ return this.parentNode; })
+                    .append("div")
+                    .attr("id", "buttons");
+
+  buttons.selectAll().data(["programmes", "projects"])
+         .enter().append("button")
+         .text(String)
+         .on("click", function(d) {
+           var tgt = d3.select("#" + d);
+           tgt.classed("hidden", !tgt.classed("hidden"));
+         });
+}
+
 var q = d3.queue()
           .defer (_q, d3.json, "./data/layers.topojson", mkbase)
           .defer (_q, d3.json, "./data/nuts2006.topojson", mknuts)
@@ -370,6 +399,8 @@ var q = d3.queue()
             // TODO: allow these to be run separately after csv load
             mkstats(stats.programmes, layers.programmes);
             mkstats(stats.projects, layers.projects);
+
+            mkbuttons();
           });
 </script>
 

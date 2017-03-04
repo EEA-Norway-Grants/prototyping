@@ -39,47 +39,53 @@
     stroke-width: 1;
   }
 
-  .subunit {
+  .unit {
+    cursor: pointer;
     fill: #051;
     fill-opacity: 1;
     stroke: #666;
     stroke-opacity: 0.5;
     stroke-width: 0.3px;
+    transition: fill 0.2s ease-out, stroke 0.2s ease-out;
   }
-  .subunit:hover {
-    cursor: pointer;
+  .unit.donor {
+    fill: #247;
+  }
+
+  .unit:hover, .unit.hovered {
     fill: #203;
     stroke: #fff;
   }
-  .subunit.donor {
-    fill: #115;
-  }
-  .subunit.donor:hover {
-    fill: #003;
-  }
-
-  .subunit-label {
-    fill: #999;
-    fill-opacity: 1;
-    font-size: 11px;
-    text-anchor: middle;
-    stroke: none;
-    display: none;
-  }
-  .subunit:hover .subunit-label {
-    display: block;
+  .unit.donor:hover, .unit.donor:hovered {
+    fill: #104;
   }
 
   .arc {
+    pointer-events: none;
     fill: none;
     stroke: url(#connection-gradient);
-  }
-  /* #projects */ .arc {
-    stroke-width: 0.3;
-    stroke-opacity: 0.6;
+    stroke-width: 0.5;
+    stroke-opacity: 0.5;
+    transition: stroke 0.2s ease-out, stroke-opacity 1s ease-out;
   }
   #programmes .arc {
+    /*
     stroke-width: 1;
+    stroke-opacity: 0.8;
+    */
+    stroke: violet;
+    stroke-opacity: 0.7;
+  }
+  #projects .arc {
+    /*
+    stroke-width: 0.3;
+    stroke-opacity: 0.6;
+     */
+    stroke: orange;
+    stroke-opacity: 0.3;
+  }
+  #programmes .arc.hovered, #projects .arc.hovered {
+    stroke: red;
     stroke-opacity: 0.8;
   }
 
@@ -99,7 +105,7 @@
   .states-borders {
     stroke: black;
   }
-  .subunit {
+  .unit {
     fill: #200;
     stroke: #666;
   }
@@ -116,11 +122,11 @@
 <script>
 var width = 800,
     height = 600;
-var svg = d3.select("#map").append("svg")
+var _svg = d3.select("#map").append("svg")
             .attr("width", width)
             .attr("height", height);
 
-var defs = svg.append("defs");
+var defs = _svg.append("defs");
 // TODO: add a second, inverted gradient
 //       to use for reverse arcs
 // TODO: actually, that probably won't work. if so,
@@ -166,18 +172,29 @@ var path = d3.geoPath()
 
 var graticule = d3.geoGraticule();
 
-var base = svg.append("g").attr("id","base");
+/* prepare document structure */
+var layers = {};
 
+/* base layer */
+layers.base = _svg.append("g").attr("id","base");
 
-base.append("path")
-    .datum({type: "Sphere"})
-    .attr("id", "sphere")
-    .attr("d", path);
+layers.base.append("path")
+      .datum({type: "Sphere"})
+      .attr("id", "sphere")
+      .attr("d", path);
 
-base.append("path")
-    .datum(graticule)
-    .attr("class", "graticule")
-    .attr("d", path);
+layers.base.append("path")
+      .datum(graticule)
+      .attr("class", "graticule")
+      .attr("d", path);
+
+/* member states layer */
+layers.states = _svg.append("g").attr("id","states");
+
+/* relationships layers */
+layers.relations = _svg.append("g").attr("id", "relations");
+layers.projects = layers.relations.append("g").attr("id","projects");
+layers.programmes = layers.relations.append("g").attr("id","programmes");
 
 var donor_states = ['IS', 'LI', 'NO'];
 var keep_states = [
@@ -185,38 +202,60 @@ var keep_states = [
   'BG', 'CY', 'CZ', 'EE', 'ES', 'GR', 'HR', 'HU', 'EL',
   'LT', 'LV', 'MT', 'PL', 'PT', 'RO', 'SI', 'SK'];
 
-var stats = d3.map(),
-    centroids = d3.map();
+var stats = {
+  programmes: [],
+  projects: []
+};
+var centroids = d3.map();
 
 var mkbase = function(error, data, callback) {
   if (error) return console.error(error);
 
-  base.selectAll()
-      .data(topojson.feature(data, data.objects.countries).features)
-      .enter().append("path")
-      .attr("d", path)
-      .attr("class", "country-terrain");
+  layers.base.selectAll()
+        .data(topojson.feature(data, data.objects.countries).features)
+        .enter().append("path")
+        .attr("d", path)
+        .attr("class", "country-terrain");
 
-  base
-    .datum(topojson.mesh(data, data.objects.countries))
-    .append("path")
-    .attr("d", path)
-    .attr("class", "country-borders");
+  layers.base
+        .datum(topojson.mesh(data, data.objects.countries))
+        .append("path")
+        .attr("d", path)
+        .attr("class", "country-borders");
 
   if (callback !== undefined) callback();
 };
 
-var mkmap = function(error, data, callback) {
+var unithandler = function() {
+  var _handle = function(d, enable) {
+    d3.selectAll("#relations .arc." + d.id)
+      .classed("hovered", enable)
+      .each(function(self) {
+        // make the hover work both ways
+        var other = d.id == self.source ? self.target :
+                    (d.id == self.target ? self.source :
+                     console.error('this.. never... wut?'));
+        d3.selectAll("#states .unit." + other)
+          .classed("hovered", enable);
+      });
+  }
+  var over = function(d) {
+    return _handle(d, true);
+  }
+  var out = function(d) {
+    return _handle(d, false);
+  }
+  return {over: over, out: out};
+}();
+
+var mknuts = function(error, data, callback) {
   if (error) return console.error(error);
 
-  var units = topojson.feature(data,
-                               data.objects.nuts3);
+  var _units = topojson.feature(data,
+                                data.objects.nuts3);
 
-  //var units = topojson.feature(data,
-  //                             data.objects.nutsrg);
-
-  var subunits = svg.selectAll()
-                    .data(units.features)
+  var units = layers.states.selectAll()
+                    .data(_units.features)
                     .enter().append("g")
                     .filter(function(d) {
                       // TODO: this is a bad place to do this
@@ -227,64 +266,56 @@ var mkmap = function(error, data, callback) {
                     })
                     .attr("class", function(d) {
                       var state = d.id.substr(0,2);
-                      var name = donor_states.indexOf(state) != -1 ?
-                                 'donor' : d.id;
-                      return "subunit " + name;
-                    });
-  subunits.append("path")
-          .attr("d", path);
+                      var donor = donor_states.indexOf(state) != -1 ? 'donor ' : '';
+                      return "unit " + donor + d.id;
+                    })
+                    // TODO: handle non-programme entities that are connected
+                    .on("mouseover", unithandler.over)
+                    .on("mouseout", unithandler.out);
+  units.append("title")
+       .text(function(d) { return d.id});
+  units.append("path")
+       .attr("d", path);
 
-  subunits.append("text")
-          .attr("class", function(d) {
-            return "subunit-label " + d.id;
-          })
-          .attr("transform", function(d) {
-            return "translate(" + path.centroid(d) + ")";
-          })
-          .text(function(d) {
-            return d.id;
-          });
-
-  svg
-    .datum(topojson.mesh(data, data.objects.nuts0,
-                         function(a, b) {
-                           return keep_states.indexOf(a.id) != -1 ||
-                                  keep_states.indexOf(b.id) != -1;
-                         }))
-    .append("path")
-    .attr("d", path)
-    .attr("class","states-borders");
+  layers.states
+        .datum(topojson.mesh(data, data.objects.nuts0,
+                             function(a, b) {
+                               return keep_states.indexOf(a.id) != -1 ||
+                                      keep_states.indexOf(b.id) != -1;
+                             }))
+        .append("path")
+        .attr("d", path)
+        .attr("class","states-borders");
 
   if (callback !== undefined) callback();
 };
 
-var mkstats = function() {
-  var arcs = svg.append("g").selectAll()
-                .data(stats.entries());
+var mkstats = function(stats, layer) {
+  var arcs = layer.selectAll()
+                  .data(stats);
   arcs
     .enter().append("path")
-    .attr('class','arc')
+    .attr('class', function(d) {
+      return 'arc ' + d.source + ' ' + d.target;
+    })
     .attr('d', function(d) {
-      var nuts = d.key.split(','),
-          source = nuts[0],
-          target = nuts[1],
-          _source = centroids.get(source),
-          _target = centroids.get(target);
+      var source = centroids.get(d.source),
+          target = centroids.get(d.target);
 
-      if (_source === undefined) {
-        console.log('missing source:', '«' + source + '»');
+      if (source === undefined) {
+        console.log('missing source:', '«' + d.source + '»');
         return;
       }
-      if (_target === undefined) {
-        console.log('missing target:', target);
+      if (target === undefined) {
+        console.log('missing target:', d.target);
         return;
       }
 
-      var x0 = _source[0],
-          y0 = _source[1],
+      var x0 = source[0],
+          y0 = source[1],
 
-          x1 = _target[0],
-          y1 = _target[1],
+          x1 = target[0],
+          y1 = target[1],
 
           // distance between points = circle radius
           _dx = x1 - x0,
@@ -308,7 +339,6 @@ var mkstats = function() {
 
 var _q = function() {
   // wrap a function call so d3.queue works
-  console.log(arguments);
   var args = Array.prototype.splice.call(arguments, 0);
 
   var func = args.splice(0, 1)[0];
@@ -327,13 +357,20 @@ var _q = function() {
 
 var q = d3.queue()
           .defer (_q, d3.json, "./data/layers.topojson", mkbase)
-          .defer (_q, d3.json, "./data/nuts2006.topojson", mkmap)
-          .defer (d3.csv, "./data/projects_nuts3.csv",
-                  function(d) {
-                    stats.set([d.source, d.target], d.count);
-                  })
-          .await(mkstats);
+          .defer (_q, d3.json, "./data/nuts2006.topojson", mknuts)
+          .defer (d3.csv, "./data/programmes_nuts3.csv", function(d) {
+            stats.programmes.push(d);
+            //return d;
+          })
+          .defer (d3.csv, "./data/projects_nuts3.csv", function(d) {
+            stats.projects.push(d);
+            //return d;
+          })
+          .await(function(){
+            // TODO: allow these to be run separately after csv load
+            mkstats(stats.programmes, layers.programmes);
+            mkstats(stats.projects, layers.projects);
+          });
 </script>
-
 
 </html>

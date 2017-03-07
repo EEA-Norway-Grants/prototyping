@@ -47,7 +47,32 @@
     {
         "count": "1", 
         "source": "IS00", 
+        "target": "BG41"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "CZ01"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "EE00"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "ES30"
+    }, 
+    {
+        "count": "2", 
+        "source": "IS00", 
         "target": "HU10"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "PL12"
     }, 
     {
         "count": "1", 
@@ -55,9 +80,64 @@
         "target": "PT20"
     }, 
     {
-        "count": "2", 
+        "count": "3", 
         "source": "IS00", 
         "target": "RO32"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "SI02"
+    }, 
+    {
+        "count": "1", 
+        "source": "IS00", 
+        "target": "SK01"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "BG41"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "CZ01"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "EE00"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "ES30"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "HU10"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "PL12"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "RO32"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "SI02"
+    }, 
+    {
+        "count": "1", 
+        "source": "LI00", 
+        "target": "SK01"
     }, 
     {
         "count": "1", 
@@ -105,7 +185,7 @@
         "target": "LT00"
     }, 
     {
-        "count": "4", 
+        "count": "5", 
         "source": "NO01", 
         "target": "LV00"
     }, 
@@ -178,6 +258,61 @@
         "count": "1", 
         "source": "NO04", 
         "target": "RO32"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "BG41"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "CZ01"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "EE00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "ES30"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "HU10"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "LT00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "LV00"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "PL12"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "RO32"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "SI02"
+    }, 
+    {
+        "count": "1", 
+        "source": "NO05", 
+        "target": "SK01"
     }, 
     {
         "count": "2", 

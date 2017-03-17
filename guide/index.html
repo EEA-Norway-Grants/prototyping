@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>EEAG Master Page</title>
+
+
+
+  <link rel="stylesheet" href="./static/styles/normalize.css">
+  <link rel="stylesheet" href="./static/styles/open-iconic.min.css">
+  <link rel="stylesheet" href="./static/styles/_main.css">
+</head>
+<body>
+  
+  <header class="header">
+    <div class="container">
+      
+      <div class="header-inner">
+        <div class="header-logo">
+          <a href="#">
+            <img src="" alt="EEAG logo">
+          </a>
+        </div>
+
+        <nav class="header-menu">
+          <ul>
+            <li><a href="#" class="active">Grants</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Projects</a></li>
+          </ul>
+        </nav>
+
+        <form class="header-search">
+          <input type="search" placeholder="Search">
+          <button type="submit" title="Search">
+            <span class="icon icon-search"></span>
+          </button>
+        </form>
+
+        <!-- Mobile toggles -->
+        <button type="button" class="header-toggle header-search-toggle" title="Search">
+          <span class="icon icon-search"></span>
+        </button>
+        <button type="button" class="header-toggle header-menu-toggle" title="Menu">
+          <span class="icon icon-menu"></span>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- not rendered in search pages -->
+  <div class="filters">
+    <div class="container">
+      <div class="filters-inner">
+
+        <div class="filters-label">
+          Showing data for:
+        </div>
+
+
+        <ul class="list-filters">
+          <li>
+            <span class="tag">
+              <span class="muted">Country:</span>
+              <span class="clip-tag">Poland</span>
+              <span class="icon icon-close"></span>
+            </span>
+          </li>
+          <li>
+            <span class="tag">
+              <span class="muted">Priority sector:</span>
+              <span class="clip-tag">Environmental protection and management</span>
+              <span class="icon icon-close"></span>
+            </span>
+          </li>
+        </ul>
+
+
+
+        <!-- <button class="toggle-filters">
+          expand
+        </button> -->
+
+        <button class="no-btn muted" id="reset-filters">
+          Reset filters
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="container">
+      <div class="body-inner">
+        <main class="main">
+
+          <h1 class="page-title">EEAG Guide</h1>
+
+          <!-- Typography -->
+          <section class="section">
+            <h2 class="section-title">Typography</h2>
+
+            <p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae assumenda, incidunt ipsum saepe nostrum. Quas, non? Reiciendis molestias officiis placeat, aperiam, ipsam alias quos fugiat sed officia eos accusantium est.</p>
+            <a href="#">Anchor</a>
+
+            <p class="small muted">Caption: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat praesentium inventore eligendi officia cupiditate temporibus?</p>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Form controls</h2>
+
+
+            <!-- input box -->
+            <h3>Input boxes</h3>
+
+            <span class="input input-box">
+              <label for="">Text box</label>
+              <input type="text" placeholder="Placeholder">
+            </span>
+
+            <span class="input input-box">
+              <label for="">Disabled</label>
+              <input type="text" disabled placeholder="Disabled">
+            </span>
+
+            <!-- Radio buttons -->
+            <h3>Radio buttons</h3>
+
+            <span class="input input-radio">
+              <input type="radio" id="radio-1" name="radio" checked>
+              <label for="radio-1">Radio</label>
+            </span>
+
+            <span class="input input-radio">
+              <input type="radio" id="radio-2" name="radio">
+              <label for="radio-2">Radio</label>
+            </span>
+
+            <span class="input input-radio">
+              <input type="radio" id="radio-disabled-checked" disabled checked>
+              <label for="radio-disabled-checked">Disabled</label>
+            </span>
+
+
+            <!-- Checkboxes -->
+            <h3>Checkboxes</h3>
+
+            <span class="input input-checkbox">
+              <input type="checkbox" id="checkbox" checked>
+              <label for="checkbox">Checkbox</label>
+            </span>
+
+            <span class="input input-checkbox">
+              <input type="checkbox" id="checkbox-disabled" disabled>
+              <label for="checkbox-disabled">Disabled</label>
+            </span>
+
+            <span class="input input-checkbox">
+              <input type="checkbox" id="checkbox-disabled-checked" disabled checked>
+              <label for="checkbox-disabled-checked">Disabled &amp; checked</label>
+            </span>
+
+            
+
+
+            <!-- Buttons -->
+            <h3>Buttons</h3>
+            <button class="btn btn-primary btn-min" type="button">
+              Primary
+            </button>
+            <button class="btn btn-default btn-min" type="button">
+              Default
+            </button>
+            <a href="#" class="btn btn-primary" disabled>Primary disabled</a>
+            <input type="submit" class="btn btn-default" disabled value="Default disabled">
+
+            <!-- Tags -->
+            <h3>Tags</h3>
+            <span class="tag">Tag</span>
+            <span class="tag dismissable">Tag <span class="icon icon-close"></span></span>
+
+          </section>
+
+
+
+
+          <!-- Assets -->
+          <section class="section">
+            <h2 class="section-title">Assets</h2>
+
+            <!-- Flags -->
+            <h3>Flags</h3>
+
+            <span class="flag flag-bulgaria"></span>
+            <span class="flag flag-croatia"></span>
+            <span class="flag flag-cyprus"></span>
+            <span class="flag flag-czechrepublic"></span>
+            <span class="flag flag-estonia"></span>
+            <span class="flag flag-greece"></span>
+            <span class="flag flag-hungary"></span>
+            <span class="flag flag-latvia"></span>
+            <span class="flag flag-lithuania"></span>
+            <span class="flag flag-malta"></span>
+            <span class="flag flag-poland"></span>
+            <span class="flag flag-portugal"></span>
+            <span class="flag flag-romania"></span>
+            <span class="flag flag-slovakia"></span>
+            <span class="flag flag-slovenia"></span>
+            <span class="flag flag-spain"></span>
+            
+            <span class="flag flag-iceland"></span>
+            <span class="flag flag-liechtenstein"></span>
+            <span class="flag flag-norway"></span>
+
+            <!-- Icons -->
+            <h3>Icons</h3>
+
+            <p>Using icons svg icons converted to icon font via icomoon.io. SVG icons can be found in ./static/images/icons</p>
+            
+            <span class="icon icon-chevron-left"></span>
+            <span class="icon icon-chevron-right"></span>
+            <span class="icon icon-close"></span>
+            <span class="icon icon-dropdown"></span>
+            <span class="icon icon-menu"></span>
+            <span class="icon icon-search"></span>
+          </section>
+
+          
+        </main>
+        <aside class="aside">
+
+          <div class="sidebar">
+            <div class="sidebar-header">
+              <strong>&euro;1.798.100.000</strong>
+              <small>&euro;0.000.000 for bilateral relations</small>
+            </div>
+
+
+            <div class="sidebar-tabs" id="sidebar-tabs">
+              <nav class="sidebar-tab-menu">
+                <a class="sidebar-tab-menu-item active">
+                  Results
+                  <span class="counter">14</span>
+                </a>
+                <a class="sidebar-tab-menu-item">
+                  Programmes
+                  <span class="counter">156</span>
+                </a>
+              </nav>
+              <div class="sidebar-tab-content">
+                <div class="sidebar-tab-pane active" id="tab-results">
+
+                  <ul class="no-list">
+
+                    <!-- outcome -->
+                    <li>
+                      <div class="outcome green-industry-innovation">
+                        <h4 class="outcome-name">Improved environmental information systems</h4>
+                        <small class="muted">Green industry innovation</small>
+                        
+                        <ul class="no-list">
+                          <li class="indicator">
+                            <div class="country">
+                              <span class="flag flag-small flag-romania"></span> Romania
+                            </div>
+                            <div class="indicator-result">
+                              <span class="value">12</span> <span class="label">new qualified biodiversity  experts on staff</span>
+                            </div>
+                          </li>
+                          <li class="indicator">
+                            <div class="country">
+                              <span class="flag flag-small flag-hungary"></span> Hungary
+                            </div>
+                            <div class="indicator-result">
+                              <span class="value">12</span> <span class="label">new qualified monitoring systems for  endagered species</span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+
+                    <!-- outcome -->
+                    <li>
+                      <div class="outcome civil-society">
+                        <h4 class="outcome-name">Strengthened capacity of NGOs and an enabling  environment for the sector promoted</h4>
+                        <small class="muted">Civil society</small>
+
+                        <ul class="no-list">
+                          <li class="indicator">
+                            <div class="country">
+                              <span class="flag flag-small flag-bulgaria"></span> Bulgaria
+                            </div>
+                            <div class="indicator-result">
+                              <span class="value">27</span> <span class="label">NGOs achieving new sources of funding </span>
+                            </div>
+                          </li>
+                          <li class="indicator">
+                            <div class="country">
+                              <span class="flag flag-small flag-greece"></span> Greece
+                            </div>
+                            <div class="indicator-result">
+                              <span class="value">13</span> <span class="label">new NGOs/small organisations</span>
+                            </div>
+                          </li>
+                          <li class="indicator">
+                            <div class="country">
+                              <span class="flag flag-small flag-malta"></span> Malta
+                              &ensp;
+                              <span class="flag flag-small flag-slovakia"></span> Slovakia
+                            </div>
+                            <div class="indicator-result">
+                              <span class="value">26</span> <span class="label">NGOs/small organisations reporting  strengthened capacity</span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div>
+                <div class="sidebar-tab-pane" id="tab-programmes">
+                  Programmes
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="small muted">
+          <p>EEA Grants - Norway Grants, Financial Mechanism Office, Tel: +32 (0) 2 286 1701, Fax: +32 (0) 2 286 1889, Email: <a href="mailto:info-fmo@efta.int" target="_self">info-fmo@efta.int</a></p>
+          <p>Postal address: 12-16 Rue Joseph II, 1000 Brussels, Belgium, Visiting address: 47-48, Boulevard du Régent 1000 Brussels, Belgium</p>
+          <p><a href="http://eeagrants.org/cookies">Cookie policy</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- scripts -->
+  <script src="./static/scripts/tether.js"></script>
+  <script src="./static/scripts/vanilla-js-tabs.js"></script>
+
+  <script src="./static/scripts/_main.js"></script>
+
+  <!-- toggle guide mode -->
+  <script>
+    (function () {
+      window.addEventListener('keyup', function(e) {
+        if (e.keyCode === 71)
+          document.body.classList.toggle('guide');
+      }, false);
+    }())
+  </script>
+
+</body>
+</html>

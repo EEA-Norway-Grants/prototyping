@@ -211,6 +211,17 @@ button {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><circle cx='10' cy='10' r='7' fill='#898989'/></svg>");
 }
 
+
+.subtle-select {
+  background: transparent;
+  font: inherit;
+  color: #898989;
+  border: 0;
+}
+.subtle-select:hover {
+  color: inherit;
+}
+
 /* Tags */
 .tag {
   display: inline-block;
@@ -390,16 +401,33 @@ button {
 
 .section {
   border-top: 1px solid #ddd;
-  padding-top: 1.3334rem;
-  padding-bottom: 1.3334rem;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.section-header {
+  margin-bottom: 20px;
 }
 .section-title {
   margin-top: 0;
+  margin-bottom: 0;
   color: #005494;
   font-weight: normal;
-  font-size: 1.6rem;
+  font-size: 24px;
 }
-
+@media (min-width: 769px) {
+  .section-header::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .section-title {
+    float: left;
+  }
+  .section-header .subtle-select {
+    float: right;
+    margin-top: 5px;
+  }
+}
 
 
 
@@ -657,7 +685,7 @@ button {
   table-layout: auto;
   border-collapse: collapse;
 }
-.table-donor-programme-partners {
+.table-donor-programme-partners table {
   table-layout: auto;
   width: 100%;
   /*max-width: 720px;*/

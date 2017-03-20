@@ -650,3 +650,65 @@ button {
 .sidebar-tab-menu a.active::after {
   background: #005494;
 }
+
+
+/* tables */
+.table {
+  table-layout: auto;
+  border-collapse: collapse;
+}
+.table-donor-programme-partners {
+  table-layout: auto;
+  width: 100%;
+  /*max-width: 720px;*/
+  border-collapse: separate;
+  border-spacing: 0px 3px;
+  font-size: 12px;
+}
+.table-donor-programme-partners th,
+.table-donor-programme-partners td {
+  padding: 3px 6px;
+}
+.table-donor-programme-partners tbody {
+  text-align: right;
+}
+.table-donor-programme-partners tbody tr {
+  border: 1px solid transparent;  
+}
+.table-donor-programme-partners tbody th:first-child {
+  text-align: left;
+  font-size: 15px;
+}
+.table-section-header th,
+.table-section-header td {
+  border-bottom: 1px solid #ddd
+}
+.table-organization td {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+.table-organization td:first-child {
+  border-left: 1px solid transparent;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  text-align: left;
+}
+.table-organization td:last-child {
+  border-right: 1px solid transparent;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.table-organization:hover {
+  cursor: pointer;
+}
+.table-organization:hover td {
+  border-color: #50B9FF;
+}
+.table-organization.selected,
+.table-organization.selected:hover {
+  background: #F2F2F2;
+  cursor: default;
+}
+.table-organization.selected td {
+  border-color: transparent;
+}

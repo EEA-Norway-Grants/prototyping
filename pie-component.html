@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+    <script src="https://unpkg.com/d3/build/d3.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <mah-pie :datasource="chart.datasource" :width="chart.width" :height="chart.height"></mah-pie>
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: '#app',
+      components: {
+        'mah-pie': httpVueLoader('MahPie.vue'),
+      },
+      data () {
+        return {
+          chart: {
+	    width: 500,
+	    height: 200,
+	    datasource: './data/sectors.json',
+	    //datasource: 'http://localhost:8000/api/sectors.json',
+          }
+        }
+      },
+    });
+  </script>
+</html>

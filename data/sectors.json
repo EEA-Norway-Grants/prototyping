@@ -1,0 +1,338 @@
+[
+  {
+    "id": "human-and-social-development",
+    "name": "Human and Social Development",
+    "children": [
+      {
+        "id": "capacity-building-and-institutional-cooperation-between-beneficiary-state-and-norwegian-public-institutions-local-and-regional-authorities",
+        "name": "Capacity-building and Institutional Cooperation between Beneficiary State and Norwegian Public Institutions, Local and Regional Authorities",
+        "allocation": {
+          "Norway": 36618834
+        }
+      },
+      {
+        "id": "mainstreaming-gender-equality-and-promoting-work-life-balance",
+        "name": "Mainstreaming gender equality and promoting work-life balance",
+        "allocation": {
+          "EEA": 18606192,
+          "Norway": 7501905
+        }
+      },
+      {
+        "id": "cross-border-cooperation",
+        "name": "Cross-border cooperation",
+        "allocation": {
+          "Norway": 14452483
+        }
+      },
+      {
+        "id": "civil-society-support",
+        "name": "Civil Society Support",
+        "allocation": {
+          "Norway": 1122378
+        }
+      },
+      {
+        "id": "local-and-regional-initiatives-to-reduce-national-inequalities-and-to-promote-social-inclusion",
+        "name": "Local and regional initiatives to reduce national inequalities and to promote social inclusion",
+        "allocation": {
+          "EEA": 28740819,
+          "Norway": 21621622
+        }
+      },
+      {
+        "id": "children-and-youth-at-risk",
+        "name": "Children and youth at risk",
+        "allocation": {
+          "EEA": 60484481
+        }
+      },
+      {
+        "id": "institutional-framework-in-the-asylum-and-migration-sector",
+        "name": "Institutional framework in the asylum and migration sector",
+        "allocation": {
+          "EEA": 26149640
+        }
+      },
+      {
+        "id": "public-health-initiatives",
+        "name": "Public health initiatives",
+        "allocation": {
+          "EEA": 27729730,
+          "Norway": 171280200
+        }
+      }
+    ]
+  },
+  {
+    "id": "research-and-scholarship",
+    "name": "Research and Scholarship",
+    "children": [
+      {
+        "id": "bilateral-scholarship-programme",
+        "name": "Bilateral scholarship programme",
+        "allocation": {
+          "Norway": 17548108
+        }
+      },
+      {
+        "id": "research-within-priority-sectors",
+        "name": "Research within priority sectors",
+        "allocation": {
+          "EEA": 24860877
+        }
+      },
+      {
+        "id": "bilateral-research-cooperation",
+        "name": "Bilateral research cooperation",
+        "allocation": {
+          "Norway": 118189056
+        }
+      },
+      {
+        "id": "scholarships",
+        "name": "Scholarships",
+        "allocation": {
+          "EEA": 25172162
+        }
+      }
+    ]
+  },
+  {
+    "id": "carbon-capture-and-storage",
+    "name": "Carbon Capture and Storage",
+    "children": [
+      {
+        "id": "carbon-capture-and-storage-ccs",
+        "name": "Carbon capture and storage (CCS)",
+        "allocation": {
+          "Norway": 5430944
+        }
+      }
+    ]
+  },
+  {
+    "id": "decent-work-and-tripartite-dialogue",
+    "name": "Decent Work and Tripartite Dialogue",
+    "children": [
+      {
+        "id": "global-fund-for-decent-work-and-tripartite-dialogue",
+        "name": "Global fund for decent work and tripartite dialogue",
+        "allocation": {
+          "Norway": 8756757
+        }
+      }
+    ]
+  },
+  {
+    "id": "protecting-cultural-heritage",
+    "name": "Protecting cultural heritage",
+    "children": [
+      {
+        "id": "cultural-heritage",
+        "name": "Cultural heritage",
+        "allocation": {
+          "Norway": 10810811
+        }
+      }
+    ]
+  },
+  {
+    "id": "technical-assistance",
+    "name": "Technical assistance",
+    "children": [
+      {
+        "id": "technical-assistance",
+        "name": "Technical assistance",
+        "allocation": {
+          "EEA": 11035537,
+          "Norway": 11581565
+        }
+      },
+      {
+        "id": "fund-for-bilateral-relations-at-national-level",
+        "name": "Fund for bilateral relations at national level",
+        "allocation": {
+          "EEA": 5459766,
+          "Norway": 4864732
+        }
+      }
+    ]
+  },
+  {
+    "id": "protecting-cultural-heritage",
+    "name": "Protecting Cultural Heritage",
+    "children": [
+      {
+        "id": "conservation-and-revitalisation-of-cultural-and-natural-heritage",
+        "name": "Conservation and revitalisation of cultural and natural heritage",
+        "allocation": {
+          "EEA": 178873078
+        }
+      },
+      {
+        "id": "promotion-of-diversity-in-culture-and-arts-within-european-cultural-heritage",
+        "name": "Promotion of diversity in culture and arts within European cultural heritage",
+        "allocation": {
+          "EEA": 31094848
+        }
+      }
+    ]
+  },
+  {
+    "id": "environmental-protection-and-management",
+    "name": "Environmental Protection and Management",
+    "children": [
+      {
+        "id": "reduction-of-hazardous-substances",
+        "name": "Reduction of hazardous substances",
+        "allocation": {
+          "EEA": 10810811
+        }
+      },
+      {
+        "id": "environmental-monitoring-and-integrated-planning-and-control",
+        "name": "Environmental monitoring and integrated planning and control",
+        "allocation": {
+          "EEA": 39606643
+        }
+      },
+      {
+        "id": "biodiversity-and-ecosystem-services",
+        "name": "Biodiversity and ecosystem services",
+        "allocation": {
+          "EEA": 71539533
+        }
+      },
+      {
+        "id": "integrated-marine-and-inland-water-management",
+        "name": "Integrated marine and inland water management",
+        "allocation": {
+          "EEA": 40723722
+        }
+      }
+    ]
+  },
+  {
+    "id": "civil-society",
+    "name": "Civil Society",
+    "children": [
+      {
+        "id": "funds-for-non-governmental-organisations",
+        "name": "Funds for non-governmental organisations",
+        "allocation": {
+          "EEA": 173856477
+        }
+      }
+    ]
+  },
+  {
+    "id": "green-industry-innovation",
+    "name": "Green Industry Innovation",
+    "children": [
+      {
+        "id": "green-industry-innovation",
+        "name": "Green Industry Innovation",
+        "allocation": {
+          "Norway": 138033497
+        }
+      },
+      {
+        "id": "energy-efficiency",
+        "name": "Energy efficiency",
+        "allocation": {
+          "Norway": 74756757
+        }
+      }
+    ]
+  },
+  {
+    "id": "other",
+    "name": "Other",
+    "children": [
+      {
+        "id": "reserve-for-projects-under-fms2004_09",
+        "name": "Reserve For Projects Under FMs2004_09",
+        "allocation": {
+          "EEA": 5503512,
+          "Norway": 86486
+        }
+      }
+    ]
+  },
+  {
+    "id": "climate-change",
+    "name": "Climate Change",
+    "children": [
+      {
+        "id": "renewable-energy",
+        "name": "Renewable energy",
+        "allocation": {
+          "EEA": 66349075
+        }
+      },
+      {
+        "id": "environmental-and-climate-change-related-research-and-technology",
+        "name": "Environmental and climate change-related research and technology",
+        "allocation": {
+          "EEA": 19691892
+        }
+      },
+      {
+        "id": "adaptation-to-climate-change",
+        "name": "Adaptation to climate change",
+        "allocation": {
+          "EEA": 37121571
+        }
+      },
+      {
+        "id": "energy-efficiency",
+        "name": "Energy efficiency",
+        "allocation": {
+          "EEA": 90089634
+        }
+      }
+    ]
+  },
+  {
+    "id": "justice-and-home-affairs",
+    "name": "Justice and Home Affairs",
+    "children": [
+      {
+        "id": "justice-and-home-affairs",
+        "name": "Justice and Home Affairs",
+        "allocation": {
+          "Norway": 1027027
+        }
+      },
+      {
+        "id": "judicial-capacity-building-and-cooperation",
+        "name": "Judicial capacity-building and cooperation",
+        "allocation": {
+          "Norway": 42058965
+        }
+      },
+      {
+        "id": "domestic-and-gender-based-violence",
+        "name": "Domestic and Gender-based violence",
+        "allocation": {
+          "Norway": 27006886
+        }
+      },
+      {
+        "id": "correctional-services-including-non-custodial-sanctions",
+        "name": "Correctional services, including non-custodial sanctions",
+        "allocation": {
+          "Norway": 58352410
+        }
+      },
+      {
+        "id": "schengen-cooperation-and-combating-cross-border-and-organised-crime-including-trafficking-and-itinerant-criminal-groups",
+        "name": "Schengen cooperation and combating cross-border and organised crime, including trafficking and itinerant criminal groups",
+        "allocation": {
+          "Norway": 33498576
+        }
+      }
+    ]
+  }
+]

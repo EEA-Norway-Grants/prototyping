@@ -39,7 +39,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     plotOptions: {
         pie: {
-          showInLegend: true
+          showInLegend: true,
+          point: {
+            events: {
+              legendItemClick: function(e) {
+                if (e.target.drilldown != undefined) {
+                  e.target.hcEvents.click[0]();
+                } else {
+                  return false;
+                }
+              }
+            }
+          }
         },
         series: {
             dataLabels: {

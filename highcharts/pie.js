@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         text: 'Allocation by priority sector'
     },
     subtitle: {
-        text: 'Click the slices to view priority areas.'
+        text: 'Click the slices to view programme areas.'
     },
     plotOptions: {
         pie: {

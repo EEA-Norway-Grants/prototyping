@@ -4,32 +4,47 @@
     <meta charset="utf-8">
     <script src="https://unpkg.com/d3/build/d3.js"></script>
     <style>
-    	.chart {
- 			width: 80%;
- 			height: 300px;
- 			max-width: 1200px;
- 			padding: 1rem;
-    	}
-
-
+    .chart {
+        width: 80%;
+        height: 300px;
+        max-width: 1200px;
+        padding: 1rem;
+    }
+    
+    @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 10dpi) {
+        .pixel-test {
+            height: 900px;
+        }
+    }
 
     </style>
 </head>
 
 <body>
-  <!-- resize width only -->
+    <!-- resize width only -->
     <div class="chart">
-  		<svg width="100%" height="100">
-  			<rect width="100%" height="100%"></rect>
-  		</svg>
+        <svg width="100%" height="100">
+            <rect width="100%" height="100%"></rect>
+        </svg>
     </div>
-   <!-- end -->
+    <!-- end -->
 
-  <div class="chart">
-    <svg viewBox="0 0 50 50" width="100%" >
-    	<rect width="100%" height="100%"></rect>
-    </svg>
-  </div>
+    <!-- pixel-density height -->
+    <div class="chart pixel-test">
+        <svg width="100%" height="100%">
+            <rect width="100%" height="100%"></rect>
+        </svg>
+    </div>
+    <!-- end -->
+
+    <!-- fluid height + width -->
+    <div class="chart">
+        <svg viewBox="0 0 50 50" width="100%">
+            <rect width="100%" height="100%"></rect>
+        </svg>
+    </div>
+    <!-- end -->
 </body>
 
 </html>

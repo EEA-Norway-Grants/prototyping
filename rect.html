@@ -4,22 +4,32 @@
     <meta charset="utf-8">
     <script src="https://unpkg.com/d3/build/d3.js"></script>
     <style>
-    	#chart {
+    	.chart {
  			width: 80%;
  			height: 300px;
  			max-width: 1200px;
+ 			padding: 1rem;
     	}
+
+
+
     </style>
 </head>
 
 <body>
   <!-- resize width only -->
-    <div id="chart">
+    <div class="chart">
   		<svg width="100%" height="100">
   			<rect width="100%" height="100%"></rect>
   		</svg>
     </div>
    <!-- end -->
+
+  <div class="chart">
+    <svg viewBox="0 0 50 50" width="100%" >
+    	<rect width="100%" height="100%"></rect>
+    </svg>
+  </div>
 </body>
 
 </html>

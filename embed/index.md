@@ -4,7 +4,7 @@ Embedding a chart in another web page can be done by including the following `<s
 
 ```
 <div id="embedded">
-  <script src="http(s)://<host>/embed/<scenario>/<component>.js?filter1=value1&filter2=value2" async></script>
+  <script src="//<host>/embed/<scenario>/<component>.js?filter1=value1&filter2=value2" async></script>
 </div>
 ```
 

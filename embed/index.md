@@ -32,6 +32,7 @@ Possible values:
     * xsummary (the blue/green text above the sidebar)
     * programmes (the list of programmes)
     * results (the list of results)
+    * sidebar (combines xsummary / programmes / results)
   * Our partners
     * mechanisms
     * sectors
@@ -43,6 +44,7 @@ Possible values:
     * xsummary (number of donor programme/project partners)
     * results (list of results from the sidebar)
     * news (the list of news)
+    * sidebar (combines xsummary / results / news)
   * Our projects
     * mechanisms
     * sectors
@@ -51,6 +53,7 @@ Possible values:
     * xsummary
     * news
     * projects (the list of projects from the sidebar)
+    * sidebar (combines xsummary / news / projects)
 
 4. Parameters for filtering: 
 
@@ -74,6 +77,12 @@ Examples:
 <a href="https://eea-norway-grants.github.io/prototyping/embed/project_map.html" target="_blank">Project map</a>
 ```
   <script src="https://eeagrants.edw.ro/embed/projects/xmap.js" async></script>
+```
+
+<a href="https://eea-norway-grants.github.io/prototyping/embed/project_map-sidebar.html" target="_blank">Project map / sidebar combined</a>
+```
+  <script src="https://eeagrants.edw.ro/embed/projects/xmap.js" async></script>
+  <script src="https://eeagrants.edw.ro/embed/projects/sidebar.js" async></script>
 ```
 
 <a href="https://eea-norway-grants.github.io/prototyping/embed/fm.html" target="_blank">Funding by FM, filtered by country=RO</a>

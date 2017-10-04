@@ -71,26 +71,31 @@ Examples:
 
 <a href="https://eea-norway-grants.github.io/prototyping/embed/homepage.html" target="_blank">Homepage</a>
 ```
-<script src="https://eeagrants.edw.ro/embed/index/overview.js" async></script>
+<script src="https://data.eeagrants.org/embed/index/overview.js" async></script>
 ```
 
 <a href="https://eea-norway-grants.github.io/prototyping/embed/project_map.html" target="_blank">Project map</a>
 ```
-  <script src="https://eeagrants.edw.ro/embed/projects/xmap.js" async></script>
+  <script src="https://data.eeagrants.org/embed/projects/xmap.js" async></script>
 ```
 
 <a href="https://eea-norway-grants.github.io/prototyping/embed/project_map-sidebar.html" target="_blank">Project map / sidebar combined</a>
 ```
-  <script src="https://eeagrants.edw.ro/embed/projects/xmap.js" async></script>
-  <script src="https://eeagrants.edw.ro/embed/projects/sidebar.js" async></script>
+  <script src="https://data.eeagrants.org/embed/projects/xmap.js" async></script>
+  <script src="https://data.eeagrants.org/embed/projects/sidebar.js" async></script>
 ```
 
 <a href="https://eea-norway-grants.github.io/prototyping/embed/fm.html" target="_blank">Funding by FM, filtered by country=RO</a>
 ```
-  <script src="https://eeagrants.edw.ro/embed/grants/mechanisms.js?beneficiary=RO" async></script>
+  <script src="https://data.eeagrants.org/embed/grants/mechanisms.js?beneficiary=RO" async></script>
 ```
 
 <a href="https://eea-norway-grants.github.io/prototyping/embed/partner_map.html" target="_blank">Partner map, filtered by donor programme partner=Norwegian Environment Agency (NEA)</a>
 ```
-<script src="https://eeagrants.edw.ro/embed/partners/xmap.js?DPP=Norwegian+Environment+Agency+%28NEA%29" async></script>
+<script src="https://data.eeagrants.org/embed/partners/xmap.js?DPP=Norwegian+Environment+Agency+%28NEA%29" async></script>
+```
+
+<a href="https://eea-norway-grants.github.io/prototyping/embed/sectors.html" target="_blank">Grants - Priority sectors chart</a>
+```
+<script src="https://data.eeagrants.org/embed/grants/sectors.js" async></script>
 ```
